@@ -1,4 +1,4 @@
-![](https://i.loli.net/2020/09/15/DJnqK7sIMRBrOhG.png)
+![png](https://i.loli.net/2020/09/15/DJnqK7sIMRBrOhG.png)
 ### Srun client 一个深澜3000登录器
 #### 特点
 - [ 使用PyQt5编写,理论上适用于所有平台 ]
@@ -20,6 +20,12 @@ pip install requirements.txt -i https://pypi.doubanio.com/simple/
 3. 终端打开到相应目录下执行
 ```
 python3 srun.py 或 py srun.py
+```
+#### 文件结构
+```
+srun.py 为qt界面
+Core.py 为核心函数
+config.json 为配置文件
 ```
 #### 已知bug(其实也算不上啦)
 注销用户必须用本应用登陆
