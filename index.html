@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="css/mdui.css" type="text/css" />
+        <script src="js/mdui.js"></script>
+        <script type="text/javascript" src="js/qwebchannel.js"></script>
+    </head>
+    <body>
+        <script type="text/javascript">
+            window.onload = function () {
+                new QWebChannel(qt.webChannelTransport, function (channel) {
+                    window.Receivers = channel.objects.Receivers;  //此处channel.objects.printer中的printer就是上文提到的功能类注册的标识名
+                });
+            };
+
+            function login(){
+                var username = document.getElementById('UserName').value;
+                var pas = document.getElementById('password').value;
+                Receivers.Login(username+"\n"+pas);
+            }
+
+            function logout(){
+                Receivers.Logout(100);
+            }
+
+            function Show(position,content){
+                document.getElementById(position).innerHTML = content;
+            }
+            
+            function status(){
+                Receivers.show_status(100);//py获得信息
+            }
+
+            function exit(){
+                Receivers.exit_app(100);
+            }
+
+            function dialog(content){
+                document.getElementById('noticeContent').innerHTML = content;
+                var inst = new mdui.Dialog('#notice').open();
+            }
+        </script>
+        <div class="mdui-toolbar mdui-color-theme">
+            <span class="mdui-typo-title">Srun3K Login</span>
+            <div class="mdui-toolbar-spacer"></div>
+            <a href="javascript:;" class="mdui-btn mdui-btn-icon mdui-ripple" onclick="logout()"><i class="mdui-icon material-icons" mdui-tooltip="{content: '注销'}">account_circle</i></a>
+            <a href="javascript:;" class="mdui-btn mdui-btn-icon mdui-ripple" onclick="exit()"><i class="mdui-icon material-icons" mdui-tooltip="{content: '退出'}">close</i></a>        </div>
+
+        <div style="height:20px;"></div>
+        <div class="mdui-card mdui-shadow-10" style="width:80%;margin: auto;">
+            <div class="mdui-textfield" style="width:80%;margin:auto">
+                <h3>用户名</h3>
+                <input class="mdui-textfield-input" type="text" placeholder="UserName" id="UserName"/>
+            </div> 
+            <div class="mdui-textfield" style="width:80%;margin:auto">
+                <h3>密码</h3>
+                <input class="mdui-textfield-input" type="password" placeholder="Password" id='password'/>
+            </div>   
+        </div>
+            <div style="height: 20px;"></div>
+            <!-----公告栏&状态信息-->
+            
+            <div class="mdui-card mdui-shadow-10 mdui-ripple" style="margin: auto;width: 80%;">
+                <div style="margin: auto;width: 80%;">
+                    <p style="font-weight: 400;">登陆状态</p>
+                    <button class="mdui-btn mdui-ripple mdui-color-blue" onclick="status()">刷新状态</button>
+                    <p id="status" style="font-weight: 400;"></p>
+                </div>
+            </div>
+            <!---------->
+            <div class="mdui-fab-wrapper" mdui-fab="">
+                <button class="mdui-fab mdui-ripple mdui-color-theme-accent" mdui-tooltip="{content: '登陆', position: 'top'}" onclick="login()">
+                  <i class="mdui-icon material-icons">play_arrow</i>
+                  <i class="mdui-icon mdui-fab-opened material-icons">play_arrow</i>
+                </button>
+              </div>
+              
+              <!-----对话框-->
+            
+              <div class="mdui-dialog" id="notice">
+                <div class="mdui-dialog-title">Notice</div>
+                <div class="mdui-dialog-content" id="noticeContent">被你发现了!!!</div>
+                <div class="mdui-dialog-actions">
+                  <button class="mdui-btn mdui-ripple">cancel</button>
+                </div>
+              </div>
+        
+    </body>
+</html>
