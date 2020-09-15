@@ -10,14 +10,14 @@
         <script type="text/javascript">
             window.onload = function () {
                 new QWebChannel(qt.webChannelTransport, function (channel) {
-                    window.Receivers = channel.objects.Receivers;  //此处channel.objects.printer中的printer就是上文提到的功能类注册的标识名
+                    window.Receivers = channel.objects.Receivers;  //注册功能类
                 });
             };
 
             function login(){
                 var username = document.getElementById('UserName').value;
                 var pas = document.getElementById('password').value;
-                Receivers.Login(username+"\n"+pas);
+                Receivers.Login(username+"\n"+pas);//功能类传递
             }
 
             function logout(){
