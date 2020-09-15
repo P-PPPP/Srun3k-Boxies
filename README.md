@@ -11,6 +11,7 @@
 - 自动登陆和多用户登陆
 #### 特别感谢
 很多功能只是在 [原版项目](https://github.com/ehaut/srun3k-client/tree/pyqt5) 上修改的，狗尾续貂罢了，可惜项目已经存档，感谢[@zengxs](https://github.com/zengxs) [@noisky](https://github.com/noisky)
+同时感谢[mdui](https://github.com/zdhxiong/mdui)的material界面框架
 #### 使用方法
 1. 安装python3 以及 pip3
 2. 执行下方命令安装必要库
