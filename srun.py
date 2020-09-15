@@ -5,7 +5,7 @@ from PyQt5.QtWebChannel import QWebChannel
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 import Core as Core
 
-
+#本类为python和js信息交换内容
 class Receivers(QObject):
     # pyqtSlot
     @pyqtSlot(str, result=str)
@@ -44,7 +44,7 @@ class Receivers(QObject):
     def exit_app(self):
         QApplication.quit()
 
-
+#构建主页
 if __name__ == "__main__":
     core = Core.obj()
     core.__init__
@@ -63,6 +63,7 @@ if __name__ == "__main__":
     browser.page().setWebChannel(channel)
     # 内置的网页地址
     url_string = os.getcwd().replace("\\","/") + "/index.html"
+    #Windows下有"/"和"\"的区别
     print(url_string)
     browser.load(QUrl(url_string))
     browser.show()
