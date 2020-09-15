@@ -1,5 +1,5 @@
 ![png](https://i.loli.net/2020/09/15/DJnqK7sIMRBrOhG.png)
-### Srun client 一个深澜3000登录器
+### Srun client 一个深澜3000校园网登录器
 #### 特点
 - [ 使用PyQt5编写,理论上适用于所有平台 ]
 - [ 使用MaterialDesign美化,界面简洁清爽 ]
@@ -15,6 +15,7 @@
 很多功能只是在 [原版项目](https://github.com/ehaut/srun3k-client/tree/pyqt5) 上修改的，狗尾续貂罢了，可惜项目已经存档，感谢[@zengxs](https://github.com/zengxs) [@noisky](https://github.com/noisky)
 同时感谢[mdui](https://github.com/zdhxiong/mdui)的material界面框架
 #### 使用方法
+Windows用户前往release页面下载打开
 1. 安装python3 以及 pip3
 2. 执行下方命令安装必要库
 ```
@@ -31,7 +32,7 @@ Core.py 为核心函数
 config.json 为配置文件
 ```
 #### 已知bug(其实也算不上啦)
-注销用户必须用本应用登陆
+注销用户必须用本应用登陆\n
 暂时无法触发Windows的自动休眠
 #### 开源相关
 遵守[GPLＶ３](https://github.com/peterpei1186861238/Srun3k-PyQt/blob/master/LICENSE)开源协议，欢迎PR，　提issue
