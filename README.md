@@ -32,6 +32,7 @@ config.json 为配置文件
 ```
 #### 已知bug(其实也算不上啦)
 注销用户必须用本应用登陆
+暂时无法触发Windows的自动休眠
 #### 开源相关
 遵守[GPLＶ３](https://github.com/peterpei1186861238/Srun3k-PyQt/blob/master/LICENSE)开源协议，欢迎PR，　提issue
 
