@@ -3,9 +3,10 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import QObject, pyqtSlot, QUrl
 from PyQt5.QtWebChannel import QWebChannel
 from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5 import Qt
 import Core as Core
 
-#本类为python和js信息交换内容
+
 class Receivers(QObject):
     # pyqtSlot
     @pyqtSlot(str, result=str)
@@ -18,11 +19,20 @@ class Receivers(QObject):
         PassWord = content.split('\n')[1]
         core.username = UserName
         core.password = PassWord
-        self.returning(core.login())
+        self.returning("dialog",core.login())
+        self.returning("useageCount",core.login())
 
     @pyqtSlot(str, result=str)
     def Logout(self,code):
-        self.returning(core.logout())
+        self.returning("dialog",core.logout())
+
+    @pyqtSlot(str, result=str)
+    def hardLogout(self,username):
+        tempUser = core.username
+        core.username = username
+        core.logout()
+        core.username = tempUser
+
 
     def js_callback(self,result):
         print(result)
@@ -32,10 +42,11 @@ class Receivers(QObject):
         status = core.show_status()
         command = "Show('status','"+status+"');"
         browser.page().runJavaScript(command)
+        browser.page().runJavaScript("useageCount('"+status+"');")
 
-    def returning(self,content):
+    def returning(self,content,jsType):
         '''返回例如登陆信息'''
-        command = "dialog('"+content+"');"
+        command = jsType+"('"+content+"');"
         browser.page().runJavaScript(command)
 
 
@@ -44,14 +55,15 @@ class Receivers(QObject):
     def exit_app(self):
         QApplication.quit()
 
-#构建主页
+
 if __name__ == "__main__":
     core = Core.obj()
     core.__init__
+    config = core.config
     app = QApplication(sys.argv)
     # 新增一个浏览器引擎
     browser = QWebEngineView()
-    browser.setWindowTitle("Srun3K Login")
+    browser.setWindowTitle("Srun3K Boxies")
     browser.resize(900, 600)
     # 增加一个通信中需要用到的频道
     channel = QWebChannel()
@@ -63,8 +75,8 @@ if __name__ == "__main__":
     browser.page().setWebChannel(channel)
     # 内置的网页地址
     url_string = os.getcwd().replace("\\","/") + "/index.html"
-    #Windows下有"/"和"\"的区别
-    print(url_string)
     browser.load(QUrl(url_string))
+    browser.page().runJavaScript("configLoad('"+str(config)+"');")
+    browser.setWindowFlags(Qt.Qt.CustomizeWindowHint)
     browser.show()
     sys.exit(app.exec_())

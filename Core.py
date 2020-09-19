@@ -18,7 +18,11 @@ class obj():
         infoOpen.close()
         global config
         config = json.loads(info)
+        if len(config["accounts"]["account0"]["username"]) > 0:
+            self.username = config["accounts"]["account0"]["username"]
+            self.password = config["accounts"]["account0"]["password"]
         return config
+
 
     def login(self):
         '''登陆'''
