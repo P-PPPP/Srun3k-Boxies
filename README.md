@@ -1,4 +1,4 @@
-![png](https://i.loli.net/2020/09/15/DJnqK7sIMRBrOhG.png)
+![图片.png](https://i.loli.net/2020/09/19/O8fkjm5LHPx1B76.png)
 ### Srun client 一个深澜3000校园网登录器
 #### 特点
 - [ 使用PyQt5编写,理论上适用于所有平台 ]
