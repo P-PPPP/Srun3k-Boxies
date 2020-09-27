@@ -5,14 +5,18 @@
         <link rel="stylesheet" href="css/mdui.css" type="text/css" />
         <script src="js/mdui.js"></script>
         <script type="text/javascript" src="js/qwebchannel.js"></script>
+        <script type="text/javascript">
+            function createObj() {
+                new QWebChannel(qt.webChannelTransport, function (channel) {
+                window.Receivers = channel.objects.Receivers;  //此处channel.objects.printer中的printer就是上文提到的功能类注册的标识名
+            });
+            
+        };
+        </script>
     </head>
     <body class="mdui-theme-primary-light-green">
         <script type="text/javascript">
-            window.onload = function () {
-                new QWebChannel(qt.webChannelTransport, function (channel) {
-                    window.Receivers = channel.objects.Receivers;  //此处channel.objects.printer中的printer就是上文提到的功能类注册的标识名
-                });
-            };
+            window.onload = createObj();
 
             function login(){
                 var username = document.getElementById('UserName').value;
@@ -21,7 +25,8 @@
             }
 
             function logout(){
-                Receivers.Logout(100);
+                dialog("官方下线功能唯一可用的是登陆后台，但是有验证码限制，过几个版本可能会用teseract解决，但存在错误率");
+                //Receivers.Logout(100);
             }
 
             function Show(position,content){
@@ -41,27 +46,28 @@
                 var inst = new mdui.Dialog('#notice').open();
             }
 
+            function getConfig(){
+                Receivers.getConfig(100);
+            }
+
             function configLoad(config){
-                var jsonObj = JSON.parse(jsonObj);
+                var jsonObj = JSON.parse(config);
                 //获取默认账户密码,自动模式等信息
                 var defaultUserName = jsonObj.accounts.account0.username;
                 var defaultPassword = jsonObj.accounts.account0.password;
-                document.getElementById('UserName').innerHTML = defaultUserName;
-                document.getElementById('password').innerHTML = defaultPassword;
+                document.getElementById('UserName').value = defaultUserName;
+                document.getElementById('password').value = defaultPassword;
             }
 
             function useageCount(content){
                 var useage = content.split(',')[6];
                 useage = parseInt(useage)/1073741824;
                 useage.toFixed(3);
+                percentage = useage+ "%" ;
+                document.getElementById('useagebar').style.width = percentage;
                 document.getElementById('useage').innerHTML = "已用 "+useage+" G";
             }
 
-            function hardLogout(){
-                username = document.getElementById('HardUserName').value;
-                Receivers.hardLogout(username);
-                dialog("已下线");
-            }
         </script>
         <div class="mdui-toolbar mdui-color-theme">
             <span class="mdui-typo-title">Srun3K Boxies</span>
@@ -95,10 +101,11 @@
                 <div style="margin: auto;width: 80%;">
                     <p style="font-weight: 400;">登陆状态</p>
                     <button class="mdui-btn mdui-ripple mdui-color-theme" onclick="status()">刷新状态</button>
+                    <button class="mdui-btn mdui-ripple mdui-color-theme" onclick="getConfig()">刷新配置</button>
                     <p id="status" style="font-weight: 400;" class="mdui-text-truncate"></p>
                     <p style="font-weight: 400;">流量使用统计</p>
                     <div class="mdui-progress">
-                        <div class="mdui-progress-determinate" style="width: 30%;"></div>
+                        <div class="mdui-progress-determinate" style="width: 80%;" id="useagebar"></div>
                     </div>
                     <p style="font-weight: 400;" id="useage">已用 Null G</p>
                 </div>
@@ -117,13 +124,10 @@
         <div id="tools">
             <div style="height:20px;"></div>
             <div class="mdui-card mdui-shadow-10" style="margin: auto;width: 80%;">
+
                 <div class="mdui-textfield" style="width:80%;margin:auto">
-                    <h3>强制注销</h3>
-                    <p>适用于无法注销账户的问题以及各种奇奇怪怪的问题</p>
-                    <input class="mdui-textfield-input" type="text" placeholder="用户名/学号" id="HardUserName"/>
-                    <button class="mdui-btn mdui-ripple mdui-color-theme" onclick="hardLogout()">注销</button>
                 </div>
-                
+
                 <div class="mdui-divider"></div>
 
                 <div class="mdui-textfield" style="width:80%;margin:auto">
@@ -133,12 +137,12 @@
             </div>
         </div>
         
-              <!-----对话框-->
+        <!-----对话框-->
             
-              <div class="mdui-dialog" id="notice">
-                <div class="mdui-dialog-title">Notice</div>
-                <div class="mdui-dialog-content" id="noticeContent">被你发现了!!!</div>
-            </div>
+        <div class="mdui-dialog" id="notice">
+            <div class="mdui-dialog-title">Notice</div>
+            <div class="mdui-dialog-content" id="noticeContent">被你发现了!!!</div>
+        </div>
         
     </body>
 </html>

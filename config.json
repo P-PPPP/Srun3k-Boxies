@@ -1,8 +1,8 @@
 {
     "accounts": {
         "account0":{
-            "username":"123",
-            "password":"456"
+            "username":"",
+            "password":""
         },
         "account1":{
             "username":"",
@@ -16,7 +16,7 @@
     "options": {
         "autostartup": false,
         "secret": "1234567890",
-        "acid": 1,
+        "acid": 2,
         "mac": "00:00:00:00:00:00",
         "autoMode":true
     },
@@ -26,7 +26,8 @@
             "info": "http://172.16.154.130/cgi-bin/rad_user_info",
             "getmsg": "http://172.16.154.130/get_msg.php",
             "detect_acid": "http://172.16.154.130",
-            "account_settings": "http://172.16.154.130:8800"
+            "account_settings": "http://172.16.154.130:8800",
+            "home":"http://172.16.154.130:8800"
         },
         "udp": {
             "ip": "172.16.154.130",

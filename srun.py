@@ -1,4 +1,4 @@
-import sys,os
+import sys,os,json
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import QObject, pyqtSlot, QUrl
 from PyQt5.QtWebChannel import QWebChannel
@@ -8,6 +8,7 @@ import Core as Core
 
 
 class Receivers(QObject):
+
     # pyqtSlot
     @pyqtSlot(str, result=str)
     def testTxt(self, content):
@@ -19,12 +20,12 @@ class Receivers(QObject):
         PassWord = content.split('\n')[1]
         core.username = UserName
         core.password = PassWord
-        self.returning("dialog",core.login())
-        self.returning("useageCount",core.login())
+        self.returning(core.login(),"dialog")
+        self.returning(core.login(),"useageCount")
 
     @pyqtSlot(str, result=str)
     def Logout(self,code):
-        self.returning("dialog",core.logout())
+        self.returning(core.logout(),"dialog")
 
     @pyqtSlot(str, result=str)
     def hardLogout(self,username):
@@ -33,6 +34,10 @@ class Receivers(QObject):
         core.logout()
         core.username = tempUser
 
+    @pyqtSlot(str, result=str)
+    def getConfig(self):
+        config = json.dumps(core.config)
+        browser.page().runJavaScript("configLoad('"+config+"');")
 
     def js_callback(self,result):
         print(result)
@@ -46,9 +51,8 @@ class Receivers(QObject):
 
     def returning(self,content,jsType):
         '''返回例如登陆信息'''
-        command = jsType+"('"+content+"');"
+        command = jsType +"('"+content+"');"
         browser.page().runJavaScript(command)
-
 
 
     @pyqtSlot(str, result=str)
@@ -59,7 +63,6 @@ class Receivers(QObject):
 if __name__ == "__main__":
     core = Core.obj()
     core.__init__
-    config = core.config
     app = QApplication(sys.argv)
     # 新增一个浏览器引擎
     browser = QWebEngineView()
@@ -76,7 +79,6 @@ if __name__ == "__main__":
     # 内置的网页地址
     url_string = os.getcwd().replace("\\","/") + "/index.html"
     browser.load(QUrl(url_string))
-    browser.page().runJavaScript("configLoad('"+str(config)+"');")
     browser.setWindowFlags(Qt.Qt.CustomizeWindowHint)
     browser.show()
     sys.exit(app.exec_())

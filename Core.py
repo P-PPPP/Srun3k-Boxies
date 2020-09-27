@@ -1,4 +1,7 @@
 import json,os,requests
+from lxml import etree
+import urllib.parse
+
 
 class obj():    
     username=""
@@ -36,29 +39,26 @@ class obj():
             "ac_id": self.config['options']['acid'],
             "drop": 0,
             "pop": 1,
-            "type": 10,
+            "type": 2,
             "n": 117,
             "mbytes": 0,
             "minutes": 0,
         }
+
         r = self.session.post(
             self.config['server']['url']['portal'], data=payload)
         status = r.text
         return status
-        
+
 
     def logout(self):
         '''登出'''
-        payload = {
-            "action": "logout",
-            "username": self.username,
-            "ac_id": self.config['options']['acid'],
-            "type": 10,
-        }
-        r = self.session.post(
-            self.config['server']['url']['portal'], data=payload)
-        status = r.text
-        return status
+        r = self.session.get(config['server']['url']['home']).text
+        obj = etree.HTML(r)
+        print(r)
+        logout_url = obj.xpath('//td/a/@href')
+        print(logout_url)
+
 
     def show_status(self):
         '''状态显示'''
@@ -85,3 +85,5 @@ class obj():
             else:
                 result += _h + _l
         return result
+
+obj().login()
