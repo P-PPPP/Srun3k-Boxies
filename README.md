@@ -17,6 +17,8 @@
 同时感谢[mdui](https://github.com/zdhxiong/mdui)的material界面框架
 #### 使用方法
 Windows用户前往release页面下载打开
+
+其他系统用户&编译打开用户
 1. 安装python3 以及 pip3
 2. 执行下方命令安装必要库
 ```
