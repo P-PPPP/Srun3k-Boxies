@@ -5,7 +5,7 @@ from PyQt5.QtWebChannel import QWebChannel
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5 import Qt
 import Core as Core
-
+from functions import gen as Curl
 
 class Receivers(QObject):
 
@@ -38,6 +38,12 @@ class Receivers(QObject):
     def getConfig(self):
         config = json.dumps(core.config)
         browser.page().runJavaScript("configLoad('"+config+"');")
+    
+    @pyqtSlot(str, result=str)
+    def Curlgen(self,content):
+        item = content.split("\r\n")
+        info = Curl.obj().login(item[0],item[1])
+        browser.page().runJavaScript("CurlGen('"+info+"');")
 
     def js_callback(self,result):
         print(result)

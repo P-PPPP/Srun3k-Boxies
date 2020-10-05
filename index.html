@@ -68,6 +68,20 @@
                 document.getElementById('useage').innerHTML = "已用 "+useage+" G";
             }
 
+            function CurlGen(info){
+                enc_user = info.split('\\\\')[0];
+                enc_pas = info.split('\\\\')[1];
+                interfac = document.getElementById('interface').value
+                command = "curl --interface eth" + interfac + ' -d "action=login&username='+enc_user+'&password='+ enc_pas +'&drop=0&pop=0&type=2&n=117&mbytes=0&minutes=0&ac_id=2&mac=00%3a2b%3a67%3a5b%3a56%3a2e" http://172.16.154.130/cgi-bin/srun_portal'
+                document.getElementById('curlResult').innerHTML = command;
+            }
+
+            function Curlgen(){
+                user = document.getElementById('curlUser').value;
+                pas = document.getElementById('curlPas').value;
+
+                Receivers.Curlgen(user + "\r\n" + pas);
+            }
         </script>
         <div class="mdui-toolbar mdui-color-theme">
             <span class="mdui-typo-title">Srun3K Boxies</span>
@@ -126,7 +140,21 @@
             <div class="mdui-card mdui-shadow-10" style="margin: auto;width: 80%;">
 
                 <div class="mdui-textfield" style="width:80%;margin:auto">
+                    <h3>curl登陆器</h3>
+                    <p style="font-weight: 400;">组合curl命令,适用于openwrt</p>
+                    <div class="mdui-textfield" style="float: left;width: 25%;">
+                        <input class="mdui-textfield-input" type="text" placeholder="interface" id="interface"/>
+                    </div>
+                    <div class="mdui-textfield" style="float: left;width: 25%;">
+                        <input class="mdui-textfield-input" type="text" placeholder="Username" id="curlUser"/>
+                    </div>
+                    <div class="mdui-textfield" style="float: left;width: 25%;">
+                        <input class="mdui-textfield-input" type="text" placeholder="Password" id="curlPas"/>
+                    </div>      
+                    <button class="mdui-btn mdui-ripple mdui-color-theme" style="float: left;" onclick="Curlgen()">生成</button>      
+                    
                 </div>
+                <code><p style="font-weight: 400;" id="curlResult" class="mdui-typo"></p></code>
 
                 <div class="mdui-divider"></div>
 
