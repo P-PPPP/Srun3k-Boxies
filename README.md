@@ -5,20 +5,24 @@
 - [ 使用MaterialDesign美化,界面简洁清爽 ]
 - [ 前后端分离,便于维护和升级, 函数库可直接调用 ]
 - [ 强制下线服务 ]
+- [curl命令组合工具，可使用路由器/软路由多拨]
+
+#### 缺点
+- 体积过大QWQ
+
 #### ToDo List
 - Udp 心跳包
 - Windows下开机启动
 - ACID自动检测
 - 自动登陆和多用户登陆
-- 设备多拨
 - CLI
 #### 特别感谢
 很多功能只是在 [原版项目](https://github.com/ehaut/srun3k-client/tree/pyqt5) 上修改的，狗尾续貂罢了，可惜项目已经存档，感谢[@zengxs](https://github.com/zengxs) [@noisky](https://github.com/noisky)
 同时感谢[mdui](https://github.com/zdhxiong/mdui)的material界面框架
 #### 使用方法
-Windows用户前往release页面下载打开
+Windows用户前往release页面下载打开，修改config.json为你校的配置
 
-其他系统用户&编译打开用户
+其他系统用户&编译用户
 1. 安装python3 以及 pip3
 2. 执行下方命令安装必要库
 ```
