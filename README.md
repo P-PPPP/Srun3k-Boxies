@@ -19,8 +19,8 @@
 同时感谢[mdui](https://github.com/zdhxiong/mdui)的material界面框架
 #### 使用方法
 Windows用户前往release页面下载解压，打开```gui.exe```，如要配置登陆地址和信息，请自行修改目录下的```config.json```文件
-Centos和其他Linux用户下载Linux版，解压后cd到文件目录，终端输入```gui```
-其他系统用户请参考[源码使用](https://github.com/peterpei1186861238/Srun3k-Boxies/blob/master/README.md#%E6%BA%90%E7%A0%81%E4%BD%BF%E7%94%A8)
+</br>Centos和其他Linux用户下载Linux版，解压后cd到文件目录，终端输入```gui```
+其他系统用户请参考[源码使用](#%E6%BA%90%E7%A0%81%E4%BD%BF%E7%94%A8)
 #### 源码使用
 1. 安装python3 以及 pip
 2. 执行下方命令安装必要库
@@ -34,12 +34,15 @@ python3 gui.py
 #### 编译
 编译请先安装```pyinstaller```</br>
 Windows用户请复制
-```.\venv\Lib\site-packages\webview\lib\WebBrowserInterop.x64.dll
+```
+.\venv\Lib\site-packages\webview\lib\WebBrowserInterop.x64.dll
 .\venv\Lib\site-packages\webview\lib\WebBrowserInterop.x86.dll
 .\venv\Lib\site-packages\webview\lib\Microsoft.Toolkit.Forms.UI.Controls.WebView.dll
 ```
 这三个文件到文件目录中(可在python目录中找到)
-Windows下编译命令为```pyinstaller --add-data "WebBrowserInterop.x86.dll;./" --add-data "WebBrowserInterop.x64.dll;./" --add-data "Microsoft.Toolkit.Forms.UI.Controls.WebView.dll;./" --add-data "Microsoft.Toolkit.Forms.UI.Controls.WebView.LICENSE.md;./" gui.py```可自行添加图标等文件
+Windows下编译命令为</br>
+```pyinstaller --add-data "WebBrowserInterop.x86.dll;./" --add-data "WebBrowserInterop.x64.dll;./" --add-data "Microsoft.Toolkit.Forms.UI.Controls.WebView.dll;./" --add-data "Microsoft.Toolkit.Forms.UI.Controls.WebView.LICENSE.md;./" gui.py```</br>
+可自行添加图标等文件</br>
 需要注意的是，在Windows用户必须以非管理员账户编译，否则有概率在打开时报错，这是调用默认Edge内核会出现的问题，除此之外，你也可以自行编译CEF版本，具体请参考[官方文档](https://pywebview.flowrl.com/guide/renderer.html#gtk-webkit2)
 </br>其他系统用户自行修改
 
