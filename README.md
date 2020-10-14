@@ -19,6 +19,7 @@
 同时感谢[mdui](https://github.com/zdhxiong/mdui)的material界面框架
 #### 使用方法
 Windows用户前往release页面下载解压，打开```gui.exe```，如要配置登陆地址和信息，请自行修改目录下的```config.json```文件
+Centos和其他Linux用户下载Linux版，解压后cd到文件目录，终端输入```gui```
 其他系统用户请参考[源码使用](https://github.com/peterpei1186861238/Srun3k-Boxies/blob/master/README.md#%E6%BA%90%E7%A0%81%E4%BD%BF%E7%94%A8)
 #### 源码使用
 1. 安装python3 以及 pip
