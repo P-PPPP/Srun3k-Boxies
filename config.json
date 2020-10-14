@@ -1,8 +1,8 @@
 {
     "accounts": {
         "account0":{
-            "username":"",
-            "password":""
+            "username":"201917050214",
+            "password":"123456"
         },
         "account1":{
             "username":"",
@@ -17,12 +17,14 @@
         "autostartup": false,
         "secret": "1234567890",
         "acid": 2,
+        "type":2,
+        "n":117,
         "mac": "00:00:00:00:00:00",
         "autoMode":true
     },
     "server": {
         "url": {
-            "portal": "http://172.16.154.130:69/cgi-bin/srun_portal",
+            "portal": "http://172.16.154.130/cgi-bin/srun_portal",
             "info": "http://172.16.154.130/cgi-bin/rad_user_info",
             "getmsg": "http://172.16.154.130/get_msg.php",
             "detect_acid": "http://172.16.154.130",

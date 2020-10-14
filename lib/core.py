@@ -1,30 +1,27 @@
 import json,os,requests
-from lxml import etree
 import urllib.parse
 
 
 class obj():    
     username=""
     password=""
+    config = {}
+
 
     def __init__(self):
         '''初始化类'''
         super().__init__()
         self.session = requests.Session()
-        self.config = self.getConfig()
 
     
-    def getConfig(self):
+    def getConfig(self,info):
         '''获取配置信息'''
-        infoOpen = open("config.json")
-        info = infoOpen.read()
-        infoOpen.close()
         global config
         config = json.loads(info)
+        self.config = config
         if len(config["accounts"]["account0"]["username"]) > 0:
             self.username = config["accounts"]["account0"]["username"]
             self.password = config["accounts"]["account0"]["password"]
-        return config
 
 
     def login(self):
@@ -38,27 +35,16 @@ class obj():
             "mac": self.config['options']['mac'],
             "ac_id": self.config['options']['acid'],
             "drop": 0,
-            "pop": 1,
-            "type": 2,
-            "n": 117,
+            "pop": 0,
+            "type": self.config['options']['type'],
+            "n": self.config['options']['n'],
             "mbytes": 0,
             "minutes": 0,
         }
-
         r = self.session.post(
             self.config['server']['url']['portal'], data=payload)
         status = r.text
         return status
-
-
-    def logout(self):
-        '''登出'''
-        r = self.session.get(config['server']['url']['home']).text
-        obj = etree.HTML(r)
-        print(r)
-        logout_url = obj.xpath('//td/a/@href')
-        print(logout_url)
-
 
     def show_status(self):
         '''状态显示'''
@@ -86,4 +72,3 @@ class obj():
                 result += _h + _l
         return result
 
-obj().login()

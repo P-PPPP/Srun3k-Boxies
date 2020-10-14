@@ -2,26 +2,61 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="web/css/mdui.css" type="text/css" />
-        <script src="web/js/mdui.js"></script>
-    </head>
-    <body class="mdui-theme-primary-light-blue">
+        <link rel="stylesheet" href="css/mdui.css" type="text/css" />
+        <script src="js/mdui.js"></script>
+        <script type="text/javascript" src="js/qwebchannel.js"></script>
         <script type="text/javascript">
-
+            function createObj() {
+                new QWebChannel(qt.webChannelTransport, function (channel) {
+                window.Receivers = channel.objects.Receivers;  //此处channel.objects.printer中的printer就是上文提到的功能类注册的标识名
+            });
+            
+        };
+        </script>
+    </head>
+    <body class="mdui-theme-primary-light-green">
+        <script type="text/javascript">
+            window.onload = createObj();
 
             function login(){
                 var username = document.getElementById('UserName').value;
                 var pas = document.getElementById('password').value;
-                window.pywebview.api.login(username+"\n"+pas);
+                Receivers.Login(username+"\n"+pas);
             }
-            function Status(content){
-                document.getElementById("status").innerHTML = content;
-                useageCount(content)
+
+            function logout(){
+                dialog("官方下线功能唯一可用的是登陆后台，但是有验证码限制，过几个版本可能会用teseract解决，但存在错误率");
+                //Receivers.Logout(100);
+            }
+
+            function Show(position,content){
+                document.getElementById(position).innerHTML = content;
             }
             
+            function status(){
+                Receivers.show_status(100);//py获得信息
+            }
+
+            function exit(){
+                Receivers.exit_app(100);
+            }
+
             function dialog(content){
                 document.getElementById('noticeContent').innerHTML = content;
                 var inst = new mdui.Dialog('#notice').open();
+            }
+
+            function getConfig(){
+                Receivers.getConfig(100);
+            }
+
+            function configLoad(config){
+                var jsonObj = JSON.parse(config);
+                //获取默认账户密码,自动模式等信息
+                var defaultUserName = jsonObj.accounts.account0.username;
+                var defaultPassword = jsonObj.accounts.account0.password;
+                document.getElementById('UserName').value = defaultUserName;
+                document.getElementById('password').value = defaultPassword;
             }
 
             function useageCount(content){
@@ -33,12 +68,26 @@
                 document.getElementById('useage').innerHTML = "已用 "+useage+" G";
             }
 
+            function CurlGen(info){
+                enc_user = info.split('\\\\')[0];
+                enc_pas = info.split('\\\\')[1];
+                interfac = document.getElementById('interface').value
+                command = "curl --interface eth" + interfac + ' -d "action=login&username='+enc_user+'&password='+ enc_pas +'&drop=0&pop=0&type=2&n=117&mbytes=0&minutes=0&ac_id=2&mac=00%3a2b%3a67%3a5b%3a56%3a2e" http://172.16.154.130/cgi-bin/srun_portal'
+                document.getElementById('curlResult').innerHTML = command;
+            }
+
+            function Curlgen(){
+                user = document.getElementById('curlUser').value;
+                pas = document.getElementById('curlPas').value;
+
+                Receivers.Curlgen(user + "\r\n" + pas);
+            }
         </script>
         <div class="mdui-toolbar mdui-color-theme">
             <span class="mdui-typo-title">Srun3K Boxies</span>
             <div class="mdui-toolbar-spacer"></div>
-            <a href="javascript:;" class="mdui-btn mdui-btn-icon mdui-ripple" onclick="window.pywebview.api.logout();"><i class="mdui-icon material-icons" mdui-tooltip="{content: '注销'}">account_circle</i></a>
-            <a href="javascript:;" class="mdui-btn mdui-btn-icon mdui-ripple" onclick="window.pywebview.api.destory();"><i class="mdui-icon material-icons" mdui-tooltip="{content: '退出'}">close</i></a>
+            <a href="javascript:;" class="mdui-btn mdui-btn-icon mdui-ripple" onclick="logout()"><i class="mdui-icon material-icons" mdui-tooltip="{content: '注销'}">account_circle</i></a>
+            <a href="javascript:;" class="mdui-btn mdui-btn-icon mdui-ripple" onclick="exit()"><i class="mdui-icon material-icons" mdui-tooltip="{content: '退出'}">close</i></a>
         </div>
         <div class="mdui-tab" mdui-tab>
             <a href="#main" class="mdui-ripple"><i class="mdui-icon material-icons">home</i><label>主页</label></a>
@@ -65,7 +114,8 @@
             <div class="mdui-card mdui-shadow-10 mdui-ripple" style="margin: auto;width: 39%;float: left;">
                 <div style="margin: auto;width: 80%;">
                     <p style="font-weight: 400;">登陆状态</p>
-                    <button class="mdui-btn mdui-ripple mdui-color-theme" onclick="window.pywebview.api.status();">刷新状态</button>
+                    <button class="mdui-btn mdui-ripple mdui-color-theme" onclick="status()">刷新状态</button>
+                    <button class="mdui-btn mdui-ripple mdui-color-theme" onclick="getConfig()">刷新配置</button>
                     <p id="status" style="font-weight: 400;" class="mdui-text-truncate"></p>
                     <p style="font-weight: 400;">流量使用统计</p>
                     <div class="mdui-progress">
@@ -89,6 +139,21 @@
             <div style="height:20px;"></div>
             <div class="mdui-card mdui-shadow-10" style="margin: auto;width: 80%;">
 
+                <div class="mdui-textfield" style="width:80%;margin:auto">
+                    <h3>curl登陆器</h3>
+                    <p style="font-weight: 400;">组合curl命令,适用于openwrt</p>
+                    <div class="mdui-textfield" style="float: left;width: 25%;">
+                        <input class="mdui-textfield-input" type="text" placeholder="interface" id="interface"/>
+                    </div>
+                    <div class="mdui-textfield" style="float: left;width: 25%;">
+                        <input class="mdui-textfield-input" type="text" placeholder="Username" id="curlUser"/>
+                    </div>
+                    <div class="mdui-textfield" style="float: left;width: 25%;">
+                        <input class="mdui-textfield-input" type="text" placeholder="Password" id="curlPas"/>
+                    </div>      
+                    <button class="mdui-btn mdui-ripple mdui-color-theme" style="float: left;" onclick="Curlgen()">生成</button>      
+                    
+                </div>
                 <code><p style="font-weight: 400;" id="curlResult" class="mdui-typo"></p></code>
 
                 <div class="mdui-divider"></div>
