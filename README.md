@@ -36,7 +36,7 @@ Windows用户请复制```.\venv\Lib\site-packages\webview\lib\WebBrowserInterop.
 .\venv\Lib\site-packages\webview\lib\WebBrowserInterop.x86.dll
 .\venv\Lib\site-packages\webview\lib\Microsoft.Toolkit.Forms.UI.Controls.WebView.dll```这三个文件到文件目录中
 Windows下编译命令为```pyinstaller --add-data "WebBrowserInterop.x86.dll;./" --add-data "WebBrowserInterop.x64.dll;./" --add-data "Microsoft.Toolkit.Forms.UI.Controls.WebView.dll;./" --add-data "Microsoft.Toolkit.Forms.UI.Controls.WebView.LICENSE.md;./" gui.py```可自行添加图标等文件
-其他系统用户自行修改
+</br>其他系统用户自行修改
 
 #### 文件结构
 ```
