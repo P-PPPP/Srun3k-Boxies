@@ -31,7 +31,7 @@ pip install requirements.txt -i https://pypi.doubanio.com/simple/
 python3 gui.py
 ```
 #### 编译
-编译请先安装```pyinstaller```
+编译请先安装```pyinstaller```</br>
 Windows用户请复制```.\venv\Lib\site-packages\webview\lib\WebBrowserInterop.x64.dll
 .\venv\Lib\site-packages\webview\lib\WebBrowserInterop.x86.dll
 .\venv\Lib\site-packages\webview\lib\Microsoft.Toolkit.Forms.UI.Controls.WebView.dll```这三个文件到文件目录中
