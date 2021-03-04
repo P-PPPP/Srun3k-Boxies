@@ -2,6 +2,7 @@
 
 import webview,webbrowser,os
 from lib import core
+import os
 
 
 class Api():
@@ -17,8 +18,12 @@ class Api():
     def destory(self):
         window.destroy()
     def logout(self):
-        webbrowser.open_new_tab("http://172.16.154.130:8800/home")
-        
+        #webbrowser.open_new_tab("http://172.16.154.130:8800/home")
+        print(core.logout())
+    def hotspot(self):
+        os.system("start ms-settings:network-mobilehotspot")
+
+
 def getConfig():
     openInfo = open("config.json")
     info = openInfo.read()
