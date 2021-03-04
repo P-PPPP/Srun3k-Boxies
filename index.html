@@ -33,6 +33,7 @@
                 document.getElementById('useage').innerHTML = "已用 "+useage+" G";
             }
 
+
         </script>
         <div class="mdui-toolbar mdui-color-theme">
             <span class="mdui-typo-title">Srun3K Boxies</span>
@@ -90,6 +91,11 @@
             <div class="mdui-card mdui-shadow-10" style="margin: auto;width: 80%;">
 
                 <code><p style="font-weight: 400;" id="curlResult" class="mdui-typo"></p></code>
+
+                <div class="mdui-textfield" style="width:80%;margin:auto">
+                    <h3> 热点</h3>
+                    <p><a href="ms-settings:network-mobilehotspot"><button class="mdui-btn mdui-ripple mdui-color-theme" onclick="window.pywebview.api.hotspot()">启用/关闭热点</button></a></p>
+                </div>
 
                 <div class="mdui-divider"></div>
 
