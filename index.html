@@ -32,6 +32,9 @@
                 document.getElementById('useagebar').style.width = percentage;
                 document.getElementById('useage').innerHTML = "已用 "+useage+" G";
             }
+            function getName(names){
+                document.getElementById('names').innerHTML = "你好, " + names;
+            }
 
 
         </script>
@@ -39,6 +42,7 @@
             <span class="mdui-typo-title">Srun3K Boxies</span>
             <div class="mdui-toolbar-spacer"></div>
             <a href="javascript:;" class="mdui-btn mdui-btn-icon mdui-ripple" onclick="window.pywebview.api.logout();"><i class="mdui-icon material-icons" mdui-tooltip="{content: '注销'}">account_circle</i></a>
+            <a href="javascript:;" class="mdui-btn mdui-btn-icon mdui-ripple" onclick="window.pywebview.api.minimized();"><i class="mdui-icon material-icons" mdui-tooltip="{content: '最小化'}">indeterminate_check_box</i></a>
             <a href="javascript:;" class="mdui-btn mdui-btn-icon mdui-ripple" onclick="window.pywebview.api.destory();"><i class="mdui-icon material-icons" mdui-tooltip="{content: '退出'}">close</i></a>
         </div>
         <div class="mdui-tab" mdui-tab>
@@ -51,6 +55,7 @@
             <div style="height:20px;"></div>
             <div style="width: 10%;float: left;min-height: 1px;"></div>
             <div class="mdui-card mdui-shadow-10" style="width:39%;float: left;">
+                <h4 style="width:80%;margin:auto;font-weight: 300;font-style: italic;" id="names"></h4>
                 <div class="mdui-textfield" style="width:80%;margin:auto">
                     <h3>用户名</h3>
                     <input class="mdui-textfield-input" type="text" placeholder="UserName" id="UserName"/>

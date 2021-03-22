@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 import webview,webbrowser,os
-from lib import core
+from lib import core 
 import os
 
 
@@ -11,17 +11,23 @@ class Api():
         core.username = info.split('\n')[0]
         core.password = info.split('\n')[1]
         loginInfo = core.login()
+        core.webController()
         window.evaluate_js("dialog('"+loginInfo+"')")
         window.evaluate_js("useageCount('"+loginInfo+"')")
+        window.evaluate_js("getName('"+core.name+"')")
     def status(self):
         window.evaluate_js("Status('"+core.show_status()+"')")
     def destory(self):
         window.destroy()
     def logout(self):
+        core.logout()
+        window.evaluate_js("dialog('已退出')")
         #webbrowser.open_new_tab("http://172.16.154.130:8800/home")
-        print(core.logout())
+        
     def hotspot(self):
         os.system("start ms-settings:network-mobilehotspot")
+    def minimized(self):
+        window.minimize()
 
 
 def getConfig():

@@ -1,8 +1,8 @@
 {
     "accounts": {
         "account0":{
-            "username":"201917050214",
-            "password":"123456"
+            "username":"123",
+            "password":"123"
         },
         "account1":{
             "username":"",
@@ -16,7 +16,7 @@
     "options": {
         "autostartup": false,
         "secret": "1234567890",
-        "acid": 2,
+        "acid": 1,
         "type":2,
         "n":117,
         "mac": "00:00:00:00:00:00",

@@ -1,11 +1,14 @@
-import json,os,requests
-import urllib.parse
+import json,os,requests,base64
 
 
 class obj():    
     username=""
     password=""
     config = {}
+    webconfigSourceCode = ""
+    name = ""
+    logoutId = ""
+    csrf  =""
 
 
     def __init__(self):
@@ -44,6 +47,7 @@ class obj():
         r = self.session.post(
             self.config['server']['url']['portal'], data=payload)
         status = r.text
+        ##后台登陆
         return status
 
     def show_status(self):
@@ -51,6 +55,30 @@ class obj():
         r = self.session.get(self.config['server']['url']['info'])
         status = r.text
         return status
+
+    def webController(self):
+        loginUsername = str(self.username) + ':' + str(self.username)
+        encodedUsername = base64.b64encode(bytes(loginUsername,'utf-8'))
+        r = self.session.get(self.config['server']['url']['home']+"/site/sso?data="+str(encodedUsername,'utf-8'))
+        self.webconfigSourceCode = r.text
+        self.name = self.webconfigSourceCode.split('<label class="list-group-label">姓名</label>')[1].split('</li>')[0]
+        self.logoutId = self.webconfigSourceCode.split('<tr data-key="')[1].split('"')[0]
+        self.csrf = self.webconfigSourceCode.split('<meta name="csrf-token" content="')[1].split('">')[0]
+
+    def logout(self):
+        #self.webController()
+        offline_url = config['server']['url']['home'] + "/home/delete?id=" +self.logoutId
+        #print(offline_url)
+        header = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0) Gecko/20100101 Firefox/86.0",
+            "Refer":config['server']['url']['home']+"/home/index"
+        }
+        playload = {
+            "_csrf":self.csrf
+        }
+        r = self.session.post(offline_url,data=playload)
+        #print(r.text)
+        return "success"
 
     #加密方法
     @staticmethod
