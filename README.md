@@ -1,4 +1,4 @@
-![图片.png](https://i.loli.net/2020/10/14/GN4PgavIsTfYhje.png)
+![图片.png](https://i.loli.net/2021/03/23/qZN4sQ9OTkdb1np.png)
 ### SrunBoxies 深澜盒子
 [相关教程](http://wordpress.peterfile.top/index.php/2020/09/26/%e6%b7%b1%e6%be%9c%e6%a0%a1%e5%9b%ad%e7%bd%91%e6%8a%98%e8%85%be%e6%8c%87%e5%8d%97/)
 #### 特点
