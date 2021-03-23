@@ -77,7 +77,8 @@ class obj():
             "_csrf":self.csrf
         }
         r = self.session.post(offline_url,data=playload)
-        #print(r.text)
+        self.webconfigSourceCode = ""
+        #print(r.text) 
         return "success"
 
     #加密方法

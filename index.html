@@ -16,6 +16,10 @@
             }
             function Status(content){
                 document.getElementById("status").innerHTML = content;
+                if(content.indexOf("not")==0){
+                    //退出/掉线
+                    document.getElementById('names').innerHTML = "";
+                }
                 useageCount(content)
             }
             

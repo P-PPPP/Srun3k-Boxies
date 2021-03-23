@@ -11,9 +11,9 @@ class Api():
         core.username = info.split('\n')[0]
         core.password = info.split('\n')[1]
         loginInfo = core.login()
-        core.webController()
         window.evaluate_js("dialog('"+loginInfo+"')")
         window.evaluate_js("useageCount('"+loginInfo+"')")
+        core.webController()
         window.evaluate_js("getName('"+core.name+"')")
     def status(self):
         window.evaluate_js("Status('"+core.show_status()+"')")
