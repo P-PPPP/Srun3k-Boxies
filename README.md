@@ -37,7 +37,7 @@ Windows用户请复制
 ```
 这三个文件到文件目录中(可在python目录中找到)
 Windows下编译命令为</br>
-```pyinstaller --add-data "WebBrowserInterop.x86.dll;./" --add-data "WebBrowserInterop.x64.dll;./" --add-data "Microsoft.Toolkit.Forms.UI.Controls.WebView.dll;./" --add-data "Microsoft.Toolkit.Forms.UI.Controls.WebView.LICENSE.md;./" gui.py```</br>
+```pyinstaller -F gui.py --add-data "WebBrowserInterop.x86.dll;./" --add-data "WebBrowserInterop.x64.dll;./" --add-data "Microsoft.Toolkit.Forms.UI.Controls.WebView.dll;./"  --noconsol -i 1.ico```</br>
 可自行添加图标等文件</br>
 需要注意的是，在Windows用户必须以非管理员账户编译，否则有概率在打开时报错，这是调用默认Edge内核会出现的问题，除此之外，你也可以自行编译CEF版本，具体请参考[官方文档](https://pywebview.flowrl.com/guide/renderer.html#gtk-webkit2)
 </br>其他系统用户自行修改
